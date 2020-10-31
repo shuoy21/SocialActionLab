@@ -20,7 +20,24 @@ colnames(covid_websites_raw) = c("gov_link", rep("covid_link", length(covid_webs
 covid_website =mutate(covid_websites_raw, covid_first_row)
 
 temp = merge(mayor_links_raw,covid_website, by = "gov_link")
-write_xlsx(temp, path = "Texas.xlsx")
+
 
 ```
+- Add county
+
+county info is from 
+https://simplemaps.com/data/us-cities
+```{r}
+uscities_raw = read.csv("/Users/shuoyan/Documents/Social Action Lab/scraping/uscities.csv")
+texas_info = uscities_raw[uscities_raw$state_name == "Texas", c("city", "county_name")]
+
+file$city = sapply(sapply(file$city, strsplit, split = ","), "[[", 1)
+result = merge(file, texas_info, by = "city")
+
+```
+
+```{r}
+write_xlsx(result, path = "Texas.xlsx")
+```
+
 
