@@ -1,0 +1,26 @@
+---
+title: "CleanUp"
+author: "Shuo Yan"
+date: "10/31/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(plyr)
+```
+
+```{r}
+mayor_links_raw = read.csv("/Users/shuoyan/Documents/Social Action Lab/scraping/social_media.csv")
+covid_websites_raw = read.csv("/Users/shuoyan/Documents/Social Action Lab/scraping/covid websites.csv", fill = TRUE)
+
+#first row is read in as colnames
+covid_first_row = covid_websites_raw[1,]
+colnames(covid_websites_raw) = c("gov_link", rep("covid_link", length(covid_websites_raw) - 1))
+covid_website =mutate(covid_websites_raw, covid_first_row)
+
+temp = merge(mayor_links_raw,covid_website, by = "gov_link")
+View(temp)
+
+```
+
