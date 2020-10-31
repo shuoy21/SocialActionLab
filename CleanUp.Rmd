@@ -20,7 +20,7 @@ colnames(covid_websites_raw) = c("gov_link", rep("covid_link", length(covid_webs
 covid_website =mutate(covid_websites_raw, covid_first_row)
 
 temp = merge(mayor_links_raw,covid_website, by = "gov_link")
-View(temp)
+write_xlsx(temp, path = "Texas.xlsx")
 
 ```
 
